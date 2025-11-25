@@ -9,7 +9,7 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     allowedHosts: [
-      ".eu-central-1-01.gitpod.dev"
-    ]
-  }
+      '.eu-central-1-01.gitpod.dev',
+    ],
+  },
 })
