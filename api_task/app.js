@@ -1,3 +1,5 @@
+
+
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -53,7 +55,6 @@ app.get('/ping', (req, res) => {
 app.get('/tasks', (req, res) => {
     log('Route GET /tasks called');
 
-    // TODO ...
     res.status(200);
     res.json(tasks);
 });
