@@ -3,6 +3,7 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import Hello from "./Hello.jsx";
 import MessageBox from "./messages/MessageBox.jsx";
+import Address from "./address/Address.jsx";
 import TodoApp from "./tasks/TodoApp.jsx";
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
 
   return (
     <>
-      <TodoApp />
+      <Address />
     </>
   );
 }

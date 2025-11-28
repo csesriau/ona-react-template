@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import TodoFilters from "./TodoFilters";
 import TodoForm from "./TodoForm";
@@ -37,8 +37,29 @@ function TodoApp() {
   const [tasks, setTasks] = useState([]);
   const [filters, setFilters] = useState({ status: [], begin: "", end: "" });
 
+  const [now, setNow] = useState(new Date().toISOString());
+  const intervalRef = useRef(null);
+
+  function handleStart() {
+    setNow(new Date().toISOString());
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setNow(new Date().toISOString());
+      // getTasks().then((data) => setTasks(data));
+    }, 1000);
+  }
+
+  function handleStop() {
+    clearInterval(intervalRef.current);
+  }
+
   useEffect(() => {
-    var data = getTasks().then((data) => setTasks(data));
+    getTasks().then((data) => setTasks(data));
+    handleStart();
+
+    return () => {
+      handleStop();
+    };
   }, []);
 
   const handleRefreshList = () => {
@@ -68,6 +89,7 @@ function TodoApp() {
 
   return (
     <div className="container text-center">
+      <div>{now.split("T")[1].split(".")[0]}</div>
       <div className="row align-items-start">
         <div className="col-4">
           <div className="row align-items-start">
