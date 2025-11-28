@@ -19,6 +19,20 @@ function getTasks() {
     });
 }
 
+async function addTask(task) {
+  try {
+    const response = await fetch(URL_API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(task),
+    });
+    return await response.json();
+  } catch (e) {
+    console.log("Parse failed ", e);
+    return [];
+  }
+}
+
 function TodoApp() {
   const [tasks, setTasks] = useState([]);
   const [filters, setFilters] = useState({ status: [], begin: "", end: "" });
@@ -27,17 +41,18 @@ function TodoApp() {
     var data = getTasks().then((data) => setTasks(data));
   }, []);
 
+  const handleRefreshList = () => {
+    var data = getTasks().then((data) => setTasks(data));
+  };
+
   const handleTodoFormSubmit = (task) => {
-    setTasks([
-      ...tasks,
-      {
-        id: tasks.length + 1,
-        date: new Date().toISOString().split("T")[0],
-        title: task.title,
-        description: task.description,
-        status: "TODO",
-      },
-    ]);
+    addTask({
+      id: tasks.length + 1,
+      date: new Date().toISOString().split("T")[0],
+      title: task.title,
+      description: task.description,
+      status: "TODO",
+    }).then((data) => setTasks([...tasks, data]));
   };
 
   const handleFilterChange = (status, begin, end) => {
@@ -63,8 +78,10 @@ function TodoApp() {
         <div className="col-8">
           <div className="row align-items-start">
             <TodoFilters onFilterChange={handleFilterChange} />
-            {/* <TodoList tasks={applyFilter(filters, tasks)} />*/}
-            <TodoList tasks={tasks} />
+            <TodoList
+              tasks={applyFilter(filters, tasks)}
+              onRefreshList={handleRefreshList}
+            />
           </div>
         </div>
       </div>

@@ -16,6 +16,7 @@ function TodoList(props) {
   return (
     <div className="todolist">
       <h3>Liste des tâches</h3>
+      <input type="button" value="Refresh" onClick={props.onRefreshList} />
       {todoItems}
     </div>
   );

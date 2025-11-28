@@ -45,11 +45,11 @@ function TodoFilters(props) {
                 type="checkbox"
                 id="ongoing"
                 name="ongoing"
-                checked={status.includes("ONGOING")}
+                checked={status.includes("GOING")}
                 onChange={(e) => {
                   var newstatus = e.target.checked
-                    ? addStatus(status, "ONGOING")
-                    : removeStatus(status, "ONGOING");
+                    ? addStatus(status, "GOING")
+                    : removeStatus(status, "GOING");
                   setStatus(newstatus);
                   handleSubmit(newstatus, begin, end);
                 }}
@@ -61,11 +61,11 @@ function TodoFilters(props) {
                 type="checkbox"
                 id="ended"
                 name="ended"
-                checked={status.includes("ENDED")}
+                checked={status.includes("DONE")}
                 onChange={(e) => {
                   var newstatus = e.target.checked
-                    ? addStatus(status, "ENDED")
-                    : removeStatus(status, "ENDED");
+                    ? addStatus(status, "DONE")
+                    : removeStatus(status, "DONE");
                   setStatus(newstatus);
                   handleSubmit(newstatus, begin, end);
                 }}
