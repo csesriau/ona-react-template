@@ -9,7 +9,7 @@ const URL_API =
   "https://3000--019abeb9-d896-7827-ad59-70c1380c7215.eu-central-1-01.gitpod.dev/tasks";
 
 function getTasks() {
-  fetch(URL_API)
+  return fetch(URL_API)
     .then((response) => {
       return response.json();
     })
@@ -24,7 +24,7 @@ function TodoApp() {
   const [filters, setFilters] = useState({ status: [], begin: "", end: "" });
 
   useEffect(() => {
-    setTasks(getTasks());
+    var data = getTasks().then((data) => setTasks(data));
   }, []);
 
   const handleTodoFormSubmit = (task) => {
@@ -63,7 +63,8 @@ function TodoApp() {
         <div className="col-8">
           <div className="row align-items-start">
             <TodoFilters onFilterChange={handleFilterChange} />
-            <TodoList tasks={applyFilter(filters, tasks)} />
+            {/* <TodoList tasks={applyFilter(filters, tasks)} />*/}
+            <TodoList tasks={tasks} />
           </div>
         </div>
       </div>
